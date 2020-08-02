@@ -3,8 +3,6 @@ const router = require('express').Router();
 const { cardsRouter } = require('./cards');
 const { usersRouter, userRout } = require('./users');
 
-
-
 router.get('/cards', cardsRouter);
 router.get('/users', usersRouter);
 router.get('/users/:id', userRout);
