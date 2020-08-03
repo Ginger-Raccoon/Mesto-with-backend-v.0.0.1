@@ -5,7 +5,10 @@ const users = path.join(__dirname, '../data/users.json'); // импорт дан
 
 const usersRouter = (req, res) => {
   fs.promises.readFile(users, 'utf8')
-    .then((data) => res.send(data))
+    .then((data) => {
+      const usersData = JSON.parse(data);
+      res.send(usersData);
+    })
     .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
 };
 
@@ -14,10 +17,9 @@ const userRout = (req, res) => {
 
   fs.promises.readFile(users, 'utf8')
     .then((data) => {
-      const usersData = JSON.parse(data);
+      const userData = JSON.parse(data);
       // eslint-disable-next-line no-underscore-dangle
-      const result = usersData.find((user) => user._id === id);
-      console.log(data);
+      const result = userData.find((user) => user._id === id);
       if (!result) {
         res.status(404).send({ message: 'Нет пользователя с таким id' });
         return;

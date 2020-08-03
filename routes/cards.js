@@ -5,7 +5,10 @@ const cards = path.join(__dirname, '../data/cards.json'); // импорт дан
 
 const cardsRouter = (req, res) => {
   fs.promises.readFile(cards, 'utf8')
-    .then((data) => res.send(data))
+    .then((data) => {
+      const cardsData = JSON.parse(data);
+      res.send(cardsData);
+    })
     .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
 };
 
